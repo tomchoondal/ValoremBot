@@ -18,7 +18,7 @@ namespace ValoremBot
         {
             if (activity.Type == ActivityTypes.Message)
             {
-                await Conversation.SendAsync(activity, () => new Dialogs.ValoremQnaDialog());
+                await Conversation.SendAsync(activity, () => new Dialogs.ValoremLuisDialog());
             }
             else
             {
