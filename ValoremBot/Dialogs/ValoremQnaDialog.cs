@@ -25,6 +25,14 @@ namespace ValoremBot.Dialogs
             {
                 if (results.Answers.First().Questions.Count == 1)
                 {
+
+                    if (results.Answers.First().Questions.First().ToString() == "Greetings")
+                    {
+                        card = new HeroCard()
+                        {
+                            Text = results.Answers.First().Answer.ToString()
+                        };
+                    }
                     if (results.Answers.First().Questions.First().ToString() == "Planned PTOs")
                     {
                         cardTitle = "These are the Planned PTOs for this calendar year";
@@ -74,7 +82,7 @@ namespace ValoremBot.Dialogs
                 }
                 else if (results.Answers.First().Questions.Count > 2)
                 {
-                    if (results.Answers.First().Questions[0].ToString() == "Hi")
+                    if (results.Answers.First().Questions[0].ToString() == "Greetings")
                     {
                         card = new HeroCard()
                         {
@@ -122,4 +130,25 @@ namespace ValoremBot.Dialogs
             await base.DefaultWaitNextMessageAsync(context, message, results);
         }
     }
+
+    //[Serializable]
+    ////[QnAMaker("set yout subscription key here", "set your kbid here", "I don't understand this right now! Try another query!", 0.50, 3)]
+    ////  [QnAMaker("682875376ad54258acc921d95b4500c2", "c00db5e6-5802-4e32-bd1d-0cbf83c86da1", "I don't understand this right now! Try another query!", 0.50, 5)]
+    //[QnAMaker("76a58a9963e14c398cf630a9677dc525", "9dfcb7b8-4f15-43ee-8f69-21a2b9451e9d")]
+    //public class ValoremQnaDialog : QnAMakerDialog
+    //{
+    //    // Override to also include the knowledgebase question with the answer on confident matches
+    //    protected override async Task RespondFromQnAMakerResultAsync(IDialogContext context, IMessageActivity message, QnAMakerResults results)
+    //    {
+    //        if (results.Answers.Count > 0)
+    //        {
+    //            var response = "Here is the match from FAQ:  \r\n  Q: " + results.Answers.First().Questions.First() + "  \r\n A: " + results.Answers.First().Answer;
+    //            await context.PostAsync(response);
+    //        }
+    //    }
+
+
+
+
+    //}
 }

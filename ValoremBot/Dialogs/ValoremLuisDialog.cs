@@ -15,22 +15,27 @@ namespace ValoremBot.Dialogs
     [Serializable]
     public class ValoremLuisDialog : LuisDialog<object>
     {
-        [LuisIntent("")]
-        [LuisIntent("None")]
-        public async Task None(IDialogContext context, LuisResult result)
-        {
-            string message = $"Sorry";
+        public static string Intent;
 
-            await context.PostAsync(message);
+        //[LuisIntent("")]
+        //[LuisIntent("None")]
+        //public async Task None(IDialogContext context, LuisResult result)
+        //{
+        //    string message = $"Sorry";
 
-            context.Wait(this.MessageReceived);
-        }
+        //    await context.PostAsync(message);
+
+        //    context.Wait(this.MessageReceived);
+        //}
         [LuisIntent("Greetings")]
         public async Task Greetings(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
         {
             var faqDialog = new ValoremQnaDialog();
             var messageToForward = await message;
-            await context.Forward(faqDialog, AfterFAQDialog, messageToForward, CancellationToken.None);
+            messageToForward.Text = result.Intents[0].Intent;
+            await context.Forward(faqDialog, null, messageToForward, CancellationToken.None);
+
+
         }
 
         private async Task AfterFAQDialog(IDialogContext context, IAwaitable<IMessageActivity> result)
