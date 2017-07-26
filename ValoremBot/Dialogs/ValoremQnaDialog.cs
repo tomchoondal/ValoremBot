@@ -82,6 +82,12 @@ namespace ValoremBot.Dialogs
                             card = GetUrlCard(string.Format(cardTitle, "Open Opportunities"), string.Format(buttonText, "Open Opportunities"), results);
                         }
                         break;
+                    case "Travel Request Form":
+                        {
+                            cardTitle = "Find Travel Request Form here";
+                            card = GetUrlCard(string.Format(cardTitle, "Travel Request Form"), string.Format(buttonText, "Travel Request Form"), results);
+                        }
+                        break;
                     default:
                         break;
                 }
