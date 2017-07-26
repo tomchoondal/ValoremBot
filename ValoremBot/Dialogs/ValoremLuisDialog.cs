@@ -122,5 +122,23 @@ namespace ValoremBot.Dialogs
             messageToForward.Text = result.Intents[0].Intent;
             await context.Forward(qnaDialog, null, messageToForward, CancellationToken.None);
         }
+
+        [LuisIntent("Good Bye")]
+        public async Task GoodBye(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
+        {
+            var qnaDialog = new ValoremQnaDialog();
+            var messageToForward = await message;
+            messageToForward.Text = result.Intents[0].Intent;
+            await context.Forward(qnaDialog, null, messageToForward, CancellationToken.None);
+        }
+
+        [LuisIntent("Thanks")]
+        public async Task Thanks(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
+        {
+            var qnaDialog = new ValoremQnaDialog();
+            var messageToForward = await message;
+            messageToForward.Text = result.Intents[0].Intent;
+            await context.Forward(qnaDialog, null, messageToForward, CancellationToken.None);
+        }
     }
 }

@@ -88,6 +88,22 @@ namespace ValoremBot.Dialogs
                             card = GetUrlCard(string.Format(cardTitle, "Travel Request Form"), string.Format(buttonText, "Travel Request Form"), results);
                         }
                         break;
+                    case "Good Bye":
+                        {
+                            card = new HeroCard()
+                            {
+                                Text = results.Answers.First().Answer.ToString()
+                            };
+                        }
+                        break;
+                    case "Thanks":
+                        {
+                            card = new HeroCard()
+                            {
+                                Text = results.Answers.First().Answer.ToString()
+                            };
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -102,7 +118,8 @@ namespace ValoremBot.Dialogs
                 reply.Attachments.Add(attachment);
                 await context.PostAsync(reply, CancellationToken.None);
                 context.Wait(MessageReceivedAsync);
-               
+                context.Done(true);
+
             }
         }
         private static HeroCard GetUrlCard(string text, string buttonText, QnAMakerResults results)
@@ -123,5 +140,5 @@ namespace ValoremBot.Dialogs
             await base.DefaultWaitNextMessageAsync(context, message, results);
         }
     }
-    
+
 }
