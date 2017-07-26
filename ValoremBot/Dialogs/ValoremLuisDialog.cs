@@ -1,9 +1,11 @@
 ﻿using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Luis;
 using Microsoft.Bot.Builder.Luis.Models;
+using Microsoft.Bot.Connector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -24,13 +26,33 @@ namespace ValoremBot.Dialogs
             context.Wait(this.MessageReceived);
         }
         [LuisIntent("Greetings")]
-        public async Task Greetings(IDialogContext context, LuisResult result)
+        public async Task Greetings(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
         {
-            string message = $"Hi Friends! I'am your virtual assistant for any company related queries.Feel free to ask me any questions to dig through tons of Employee documents at lightning fast speed.";
+            var faqDialog = new ValoremQnaDialog();
+            var messageToForward = await message;
+            await context.Forward(faqDialog, AfterFAQDialog, messageToForward, CancellationToken.None);
+        }
 
-            await context.PostAsync(message);
+        private async Task AfterFAQDialog(IDialogContext context, IAwaitable<IMessageActivity> result)
+        {
+            var messageHandled = await result;
+            if (messageHandled != null)
+            {
+                await context.PostAsync("Sorry, I wasn't sure what you wanted.");
+            }
 
-            context.Wait(this.MessageReceived);
+            context.Wait(MessageReceived);
+        }
+
+        private async Task AfterFAQDialog(IDialogContext context, IAwaitable<bool> result)
+        {
+            var messageHandled = await result;
+            if (!messageHandled)
+            {
+                await context.PostAsync("Sorry, I wasn't sure what you wanted.");
+            }
+
+            context.Wait(MessageReceived);
         }
     }
 }
