@@ -30,115 +30,112 @@ namespace ValoremBot.Dialogs
         [LuisIntent("Branding")]
         public async Task Branding(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
         {
-            var qnaDialog = new ValoremQnaDialog();
             var messageToForward = await message;
             messageToForward.Text = result.Intents[0].Intent;
-            await context.Forward(qnaDialog, null, messageToForward, CancellationToken.None);
+            await context.Forward(new ValoremQnaDialog(), AfterDialog, messageToForward, CancellationToken.None);
         }
 
 
         [LuisIntent("Employee Handbook")]
         public async Task EmployeeHandbook(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
         {
-            var qnaDialog = new ValoremQnaDialog();
             var messageToForward = await message;
             messageToForward.Text = result.Intents[0].Intent;
-            await context.Forward(qnaDialog, null, messageToForward, CancellationToken.None);
+            await context.Forward(new ValoremQnaDialog(), AfterDialog, messageToForward, CancellationToken.None);
         }
 
         [LuisIntent("Greetings")]
         public async Task Greetings(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
         {
-            var qnaDialog = new ValoremQnaDialog();
             var messageToForward = await message;
             messageToForward.Text = result.Intents[0].Intent;
-            await context.Forward(qnaDialog, null, messageToForward, CancellationToken.None);
+            await context.Forward(new ValoremQnaDialog(), AfterDialog, messageToForward, CancellationToken.None);
         }
 
 
         [LuisIntent("Guide")]
         public async Task Guide(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
         {
-            var qnaDialog = new ValoremQnaDialog();
             var messageToForward = await message;
             messageToForward.Text = result.Intents[0].Intent;
-            await context.Forward(qnaDialog, null, messageToForward, CancellationToken.None);
+            await context.Forward(new ValoremQnaDialog(), AfterDialog, messageToForward, CancellationToken.None);
         }
 
 
         [LuisIntent("Open Opportunities")]
         public async Task OpenOpportunities(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
         {
-            var qnaDialog = new ValoremQnaDialog();
             var messageToForward = await message;
             messageToForward.Text = result.Intents[0].Intent;
-            await context.Forward(qnaDialog, null, messageToForward, CancellationToken.None);
+            await context.Forward(new ValoremQnaDialog(), AfterDialog, messageToForward, CancellationToken.None);
         }
 
 
         [LuisIntent("Organization chart")]
         public async Task Organizationchart(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
         {
-            var qnaDialog = new ValoremQnaDialog();
             var messageToForward = await message;
             messageToForward.Text = result.Intents[0].Intent;
-            await context.Forward(qnaDialog, null, messageToForward, CancellationToken.None);
+            await context.Forward(new ValoremQnaDialog(), AfterDialog, messageToForward, CancellationToken.None);
         }
 
 
         [LuisIntent("PTO")]
         public async Task PTO(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
         {
-            var qnaDialog = new ValoremQnaDialog();
             var messageToForward = await message;
             messageToForward.Text = result.Intents[0].Intent;
-            await context.Forward(qnaDialog, null, messageToForward, CancellationToken.None);
+            await context.Forward(new ValoremQnaDialog(), AfterDialog, messageToForward, CancellationToken.None);
         }
 
 
         [LuisIntent("Performance Review Template")]
         public async Task PerformanceReviewTemplate(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
         {
-            var qnaDialog = new ValoremQnaDialog();
             var messageToForward = await message;
             messageToForward.Text = result.Intents[0].Intent;
-            await context.Forward(qnaDialog, null, messageToForward, CancellationToken.None);
+            await context.Forward(new ValoremQnaDialog(), AfterDialog, messageToForward, CancellationToken.None);
         }
 
         [LuisIntent("Planned PTOs")]
         public async Task PlannedPTOs(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
         {
-            var qnaDialog = new ValoremQnaDialog();
             var messageToForward = await message;
             messageToForward.Text = result.Intents[0].Intent;
-            await context.Forward(qnaDialog, null, messageToForward, CancellationToken.None);
+            await context.Forward(new ValoremQnaDialog(), AfterDialog, messageToForward, CancellationToken.None);
         }
 
         [LuisIntent("Travel Request Form")]
         public async Task TravelRequestForm(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
         {
-            var qnaDialog = new ValoremQnaDialog();
             var messageToForward = await message;
             messageToForward.Text = result.Intents[0].Intent;
-            await context.Forward(qnaDialog, null, messageToForward, CancellationToken.None);
+            await context.Forward(new ValoremQnaDialog(), AfterDialog, messageToForward, CancellationToken.None);
         }
 
         [LuisIntent("Good Bye")]
         public async Task GoodBye(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
         {
-            var qnaDialog = new ValoremQnaDialog();
             var messageToForward = await message;
             messageToForward.Text = result.Intents[0].Intent;
-            await context.Forward(qnaDialog, null, messageToForward, CancellationToken.None);
+            await context.Forward(new ValoremQnaDialog(), AfterDialog, messageToForward, CancellationToken.None);
         }
 
         [LuisIntent("Thanks")]
         public async Task Thanks(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
         {
-            var qnaDialog = new ValoremQnaDialog();
             var messageToForward = await message;
             messageToForward.Text = result.Intents[0].Intent;
-            await context.Forward(qnaDialog, null, messageToForward, CancellationToken.None);
+            await context.Forward(new ValoremQnaDialog(), AfterDialog, messageToForward, CancellationToken.None);
+        }
+
+
+        private async Task AfterDialog(IDialogContext context, IAwaitable<IMessageActivity> result)
+        {
+            var success = await result;
+            if (!success.HasContent())
+                await context.PostAsync("I did not understand you. Can you ask the question in a different way.");
+            context.Wait(MessageReceived);
         }
     }
 }
