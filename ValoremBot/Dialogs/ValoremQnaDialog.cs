@@ -104,6 +104,14 @@ namespace ValoremBot.Dialogs
                             };
                         }
                         break;
+                    case "Help":
+                        {
+                            card = new HeroCard()
+                            {
+                                Text = results.Answers.First().Answer.ToString()
+                            };
+                        }
+                        break;
                     default:
                         break;
                 }

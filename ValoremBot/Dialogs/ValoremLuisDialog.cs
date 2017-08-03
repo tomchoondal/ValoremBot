@@ -47,9 +47,18 @@ namespace ValoremBot.Dialogs
         [LuisIntent("Greetings")]
         public async Task Greetings(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
         {
-            var messageToForward = await message;
-            messageToForward.Text = result.Intents[0].Intent;
-            await context.Forward(new ValoremQnaDialog(), AfterDialog, messageToForward, CancellationToken.None);
+            if (result.Intents[0].Score > 0.5)
+            {
+                var messageToForward = await message;
+                messageToForward.Text = result.Intents[0].Intent;
+                await context.Forward(new ValoremQnaDialog(), AfterDialog, messageToForward, CancellationToken.None);
+            }
+            else
+            {
+                string messagetext = $"Sorry, I wasn't sure what you wanted.";
+                await context.PostAsync(messagetext);
+                context.Wait(this.MessageReceived);
+            }
         }
 
 
@@ -129,6 +138,14 @@ namespace ValoremBot.Dialogs
             await context.Forward(new ValoremQnaDialog(), AfterDialog, messageToForward, CancellationToken.None);
         }
 
+
+        [LuisIntent("Help")]
+        public async Task Help(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
+        {
+            var messageToForward = await message;
+            messageToForward.Text = result.Intents[0].Intent;
+            await context.Forward(new ValoremQnaDialog(), AfterDialog, messageToForward, CancellationToken.None);
+        }
 
         private async Task AfterDialog(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
