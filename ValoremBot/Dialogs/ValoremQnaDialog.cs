@@ -36,7 +36,7 @@ namespace ValoremBot.Dialogs
                         break;
                     case "PTO":
                         {
-                            card = GetUrlCard("Here's the online link to the Valorem PTO Request Form.", "Apply PTO", results);
+                            card = GetUrlCard("Here's the online link to the Greytip site.", "Apply PTO", results);
                             cardTitle = "Enjoy your time off!";
                         }
                         break;
@@ -66,7 +66,7 @@ namespace ValoremBot.Dialogs
                         break;
                     case "Employee Handbook":
                         {
-                            cardTitle = "Hope you find it handy. If you're still having trouble finding something please reach out to : hr@valorem.com";
+                            cardTitle = "Hope you find it handy. If you're still having trouble finding something please reach out to : rsabu@valorem.com";
                             card = GetUrlCard(string.Format(cardTitle, "Employee Handbook"), string.Format(buttonText, "Employee Handbook"), results);
                         }
                         break;
