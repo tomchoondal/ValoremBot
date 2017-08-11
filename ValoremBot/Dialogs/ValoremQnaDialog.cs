@@ -12,7 +12,7 @@ using System.Threading;
 namespace ValoremBot.Dialogs
 {
     [Serializable]
-    [QnAMaker("76a58a9963e14c398cf630a9677dc525", "9dfcb7b8-4f15-43ee-8f69-21a2b9451e9d")]
+    [QnAMaker("e7af343e213e453a9f9de0b342da36be", "05be6ac3-3181-4f50-9c89-f570f6dc9634")]
     public class ValoremQnaDialog : QnAMakerDialog
     {
         protected override async Task RespondFromQnAMakerResultAsync(IDialogContext context, IMessageActivity message, QnAMakerResults results)

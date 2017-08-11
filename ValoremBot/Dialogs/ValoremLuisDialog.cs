@@ -13,7 +13,7 @@ using ValoremBot.Controllers;
 
 namespace ValoremBot.Dialogs
 {
-    [LuisModel("1ed2eb71-f02b-4c50-80dc-9c6a8b91fe88", "0aecd1d068b04654bb7e5bd61ae81e3d")]
+    [LuisModel("232f989f-69ad-4d10-90bf-0063269e92f3", "2ecb0b6f528c41c29251794806af43a2")]
     [Serializable]
     public class ValoremLuisDialog : LuisDialog<object>
     {
