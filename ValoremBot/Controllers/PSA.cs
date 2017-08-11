@@ -108,23 +108,22 @@ namespace ValoremBot.Controllers
                 string response = await resourceHelper.CallWebServiceAsync();
                 var responseHelper = new JsonHelper();
                 JToken result = responseHelper.TryParse(response);
-                List<HeroCard> empCards = new List<HeroCard>();
+                List<ThumbnailCard> empCards = new List<ThumbnailCard>();
                 if (result != null)
                 {
                     foreach (JToken userToken in result.Children())
                     {
                         string title = userToken.SelectToken("title").ToString();
-                        //string mobilephone = userToken.SelectToken("mobilephone").ToString();
-                        //string address1_city = userToken.SelectToken("address1_city").ToString();
-                        //string address1_country = userToken.SelectToken("address1_country").ToString();
                         string fullname = userToken.SelectToken("fullname").ToString();
 
-                        HeroCard card = new HeroCard();
-                        card = GetUrlCard(title, fullname);
+                        ThumbnailCard card = new ThumbnailCard();
+                        card.Title = fullname;
+                        card.Subtitle = title;
+                        card.Images = new List<CardImage>() { new CardImage("http://wwwimages.adobe.com/content/dam/acom/en/marketing-cloud/_overview/images/54658.en.marketing.cloud.overview.icon.personalize.50x50.png") };
 
                         Attachment attachment = new Attachment()
                         {
-                            ContentType = HeroCard.ContentType,
+                            ContentType = ThumbnailCard.ContentType,
                             Content = card,
                             
                         };

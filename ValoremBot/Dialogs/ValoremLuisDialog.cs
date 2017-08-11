@@ -82,13 +82,13 @@ namespace ValoremBot.Dialogs
         }
 
 
-        //[LuisIntent("Organization chart")]
-        //public async Task Organizationchart(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
-        //{
-        //    var messageToForward = await message;
-        //    messageToForward.Text = result.Intents[0].Intent;
-        //    await context.Forward(new ValoremQnaDialog(), AfterDialog, messageToForward, CancellationToken.None);
-        //}
+        [LuisIntent("Organization chart")]
+        public async Task Organizationchart(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
+        {
+            var messageToForward = await message;
+            messageToForward.Text = result.Intents[0].Intent;
+            await context.Forward(new ValoremQnaDialog(), AfterDialog, messageToForward, CancellationToken.None);
+        }
 
 
         [LuisIntent("PTO")]
@@ -150,7 +150,7 @@ namespace ValoremBot.Dialogs
         }
 
 
-        [LuisIntent("Organization chart")]
+        [LuisIntent("Search Employee")]
         public async Task SignUp(IDialogContext context, IAwaitable<IMessageActivity> message, LuisResult result)
         {
             var messageToForward = await message;
@@ -159,20 +159,19 @@ namespace ValoremBot.Dialogs
             // bool foind=Microsoft.Bot.Builder.Luis.Extensions.TryFindEntity(result, "entity",out er);
             await context.PostAsync("Great! I just need a few pieces of information to get you signed up.");
             PSA psa = new PSA();
-            await psa.Authenticate(false, "Amanda");
+            if (result.Entities.Count > 1)
+            {
+                await psa.Authenticate(false, result.Entities[1].Entity);
+            }
+            else
+            {
+                await psa.Authenticate(false, result.Entities[0].Entity);
+            }
             var reply = context.MakeMessage();
             reply.AttachmentLayout = AttachmentLayoutTypes.Carousel;
             reply.Attachments = PSA.attachments;
             await context.PostAsync(reply, CancellationToken.None);
 
-            //var form = new FormDialog<FeedbackForm>(
-            //    new FeedbackForm(),
-            //    FeedbackForm.BuildForm,
-            //    FormOptions.PromptInStart);
-            //var messageToForward = await message;
-            //messageToForward.Text = result.Intents[0].Intent;
-            //await context.Forward(FormDialog.FromForm(FeedbackForm.BuildForm), FeedbackFormComplete, messageToForward,
-            //CancellationToken.None);
         }
 
         private async Task FeedbackFormComplete(IDialogContext context, IAwaitable<FeedbackForm> result)
