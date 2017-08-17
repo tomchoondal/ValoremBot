@@ -85,9 +85,25 @@ namespace ValoremBot.Controllers
                         Content = card,
 
                     };
-                    attachments.Add(attachment);
-                    empCards.Add(card);
-
+                    bool isDuplicate = false;
+                    if (attachments.Count == 0)
+                    {
+                        attachments.Add(attachment);
+                    }
+                    else
+                    {
+                        foreach (Attachment cardAttachment in attachments)
+                        {
+                            if ((cardAttachment.Content as ThumbnailCard).Title == card.Title)
+                            {
+                                isDuplicate = true;
+                            }
+                        }
+                        if (!isDuplicate)
+                        {
+                            attachments.Add(attachment);
+                        }
+                    }
                 }
             }
 
