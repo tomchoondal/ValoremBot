@@ -7,7 +7,7 @@ using System.Linq;
 using AdaptiveCards;
 using System.Collections.Generic;
 using System.Threading;
-
+using System.Net;
 
 namespace ValoremBot.Dialogs
 {
@@ -55,7 +55,7 @@ namespace ValoremBot.Dialogs
                     case "Guide":
                         {
                             cardTitle = "Our Mission in Action";
-                            card = GetUrlCard(string.Format(cardTitle, "The Valorem Guide"), string.Format(buttonText, "Guide"), results);
+                            card = GetImageCard(string.Format(cardTitle, "The Valorem Guide"), string.Format(buttonText, "Guide"), results, @"C:\Users\tjose\Documents\Visual Studio 2017\Projects\ValoremBot\ValoremBot\Images\Guide.PNG");
                         }
                         break;
                     case "Branding":
@@ -136,6 +136,26 @@ namespace ValoremBot.Dialogs
             {
                 Text = text,
                 Buttons = new List<CardAction> { new CardAction(ActionTypes.OpenUrl, buttonText, value: results.Answers.First().Answer) }
+            };
+        }
+
+
+        private static HeroCard GetImageCard(string text, string buttonText, QnAMakerResults results, string imageUrl)
+        {
+            string url = string.Empty;
+            if (!string.IsNullOrEmpty(imageUrl))
+            {
+                var webClient = new WebClient();
+                byte[] imageBytes = webClient.DownloadData(imageUrl);
+                url = "data:image/png;base64," + Convert.ToBase64String(imageBytes);
+            }
+
+            return new HeroCard()
+            {
+                Title = text,
+                //Buttons = new List<CardAction> { new CardAction(ActionTypes.OpenUrl, buttonText, value: results.Answers.First().Answer) },
+                Images = new List<CardImage> { new CardImage(url) },
+                Tap = new CardAction(ActionTypes.OpenUrl, buttonText, value: results.Answers.First().Answer),
             };
         }
 

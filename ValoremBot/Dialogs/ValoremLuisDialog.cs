@@ -189,6 +189,7 @@ namespace ValoremBot.Dialogs
             string title = reply.Attachments.Count > 1 ? "I found "+reply.Attachments.Count+" people with this first name": "Here's what I found";
             if (reply.Attachments.Count == 0)
             {
+                title = "Sorry! Couldn't find any one. Please try another name or check your name";
             }
             await context.PostAsync(title);
             await context.PostAsync(reply, CancellationToken.None);
