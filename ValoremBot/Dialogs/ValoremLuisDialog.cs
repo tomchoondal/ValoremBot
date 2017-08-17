@@ -156,8 +156,6 @@ namespace ValoremBot.Dialogs
             var messageToForward = await message;
             messageToForward.Text = result.Intents[0].Intent;
             EntityRecommendation er = new EntityRecommendation();
-            // bool foind=Microsoft.Bot.Builder.Luis.Extensions.TryFindEntity(result, "entity",out er);
-            await context.PostAsync("Great! I just need a few pieces of information to get you signed up.");
             PSA psa = new PSA();
             if (result.Entities.Count > 1)
             {
@@ -170,6 +168,8 @@ namespace ValoremBot.Dialogs
             var reply = context.MakeMessage();
             reply.AttachmentLayout = AttachmentLayoutTypes.Carousel;
             reply.Attachments = PSA.attachments;
+            string title = reply.Attachments.Count > 1 ? "I found "+reply.Attachments.Count+" people with this first name": "Here's what I found";
+            await context.PostAsync(title);
             await context.PostAsync(reply, CancellationToken.None);
 
         }
