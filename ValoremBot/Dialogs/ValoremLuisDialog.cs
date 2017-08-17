@@ -6,6 +6,7 @@ using Microsoft.Bot.Connector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -168,7 +169,27 @@ namespace ValoremBot.Dialogs
             var reply = context.MakeMessage();
             reply.AttachmentLayout = AttachmentLayoutTypes.Carousel;
             reply.Attachments = PSA.attachments;
+
+
+
+//            var message = activity.CreateReply("");
+//            message.Type = "message";
+
+//            message.Attachments = new List<Attachment>();
+//            var webClient = new WebClient();
+//            byte[] imageBytes = webClient.DownloadData("https://placeholdit.imgix.net/~text?txtsize=35&txt=image-data&w=120&h=120");
+//            string url = "data:image/png;base64," + Convert.ToBase64String(imageBytes)
+//message.Attachments.Add(new Attachment { ContentUrl = url, ContentType = "image/png" });
+//            await _client.Conversations.ReplyToActivityAsync(message);
+
+
+
+
+
             string title = reply.Attachments.Count > 1 ? "I found "+reply.Attachments.Count+" people with this first name": "Here's what I found";
+            if (reply.Attachments.Count == 0)
+            {
+            }
             await context.PostAsync(title);
             await context.PostAsync(reply, CancellationToken.None);
 

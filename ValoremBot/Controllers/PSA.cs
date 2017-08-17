@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using ValoremBot.Helpers;
 
@@ -104,6 +105,12 @@ namespace ValoremBot.Controllers
                             attachments.Add(attachment);
                         }
                     }
+                    //var webClient = new WebClient();
+                    //byte[] imageBytes = webClient.DownloadData(@"C:\Users\lthomas\Documents\ValoremBot\ValoremBot\ValoremBot\Images\Guide.PNG");
+                    //string url = "data:image/png;base64," + Convert.ToBase64String(imageBytes);
+                    //attachments.Add(new Attachment { ContentUrl = url, ContentType = "image/png" });
+
+
                 }
             }
 
