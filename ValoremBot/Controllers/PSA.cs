@@ -55,7 +55,7 @@ namespace ValoremBot.Controllers
         {
             attachments = new List<Attachment>();
             WebRequestHelper resourceHelper;
-            string userUri = string.Format("https://valorem.crm.dynamics.com/api/data/v8.1/systemusers?$select=title,fullname&$filter=firstname%20eq%20'" + empName + "'");
+            string userUri = string.Format("https://valorem.crm.dynamics.com/api/data/v8.1/systemusers?$select=title,fullname&$filter=startswith(firstname,'" + empName + "')");
             string authorization = string.Format("Bearer {0}", accessToken);
 
             resourceHelper = new WebRequestHelper();
