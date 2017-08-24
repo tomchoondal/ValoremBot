@@ -55,7 +55,7 @@ namespace ValoremBot.Dialogs
                     case "Guide":
                         {
                             cardTitle = "Our Mission in Action";
-                            card = GetImageCard(string.Format(cardTitle, "The Valorem Guide"), string.Format(buttonText, "Guide"), results, @"C:\Users\tjose\Documents\Visual Studio 2017\Projects\ValoremBot\ValoremBot\Images\Guide.PNG");
+                            card = GetUrlCard(string.Format(cardTitle, "The Valorem Guide"), string.Format(buttonText, "Guide"), results);
                         }
                         break;
                     case "Branding":
