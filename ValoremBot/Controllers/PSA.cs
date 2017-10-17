@@ -45,7 +45,7 @@ namespace ValoremBot.Controllers
                 accessToken = result.SelectToken("access_token") != null ? result.SelectToken("access_token").ToString() : string.Empty;
 
                 refreshToken = result.SelectToken("refresh_token") != null ? result.SelectToken("refresh_token").ToString() : string.Empty;
-                isAuthenticated = true;
+                //isAuthenticated = true;
             }
             await FetchResources(text);
 
